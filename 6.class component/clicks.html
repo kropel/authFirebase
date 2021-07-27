@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>double and single clicks</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"
+    />
+    <!-- <link rel="stylesheet" href="style.css"> -->
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor() {
+          super();
+          this.state = { counter: 0, clickedButton: 0, doubelClickButton: 0 };
+        }
+        render() {
+          return (
+            <div>
+              <p>
+                <button
+                  onClick={this.increment.bind(this)}
+                  onDoubleClick={this.doubleIncrementHandler.bind(this)}
+                >
+                  +
+                </button>
+                <output>{this.state.counter}</output>
+                <button
+                  onClick={this.decrement.bind(this)}
+                  onDoubleClick={this.doubleDecrementHandler.bind(this)}
+                >
+                  -
+                </button>
+              </p>
+              <p>
+                Single clicks: <output>{this.state.clickedButton}</output>
+              </p>
+              <p>
+                Double clicks: <output>{this.state.doubelClickButton}</output>
+              </p>
+            </div>
+          );
+        }
+        doubleIncrementHandler() {
+          this.setState({
+            doubelClickButton: this.state.doubelClickButton + 1,
+          });
+        }
+        doubleDecrementHandler() {
+          this.setState({
+            doubelClickButton: this.state.doubelClickButton - 1,
+          });
+        }
+        increment() {
+          this.setState({
+            counter: this.state.counter + 1,
+            clickedButton: this.state.clickedButton + 1,
+          });
+        }
+        decrement() {
+          this.setState({
+            counter: this.state.counter - 1,
+            clickedButton: this.state.clickedButton + 1,
+          });
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>

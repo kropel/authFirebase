@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>State</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"
+    />
+    <!-- <link rel="stylesheet" href="style.css"> -->
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            name: '',
+            surname: '',
+          };
+        }
+        render() {
+          return (
+            <div>
+              <p>
+                <label>
+                  Name:
+                  <input
+                    type="text"
+                    onInput={this.onInputName.bind(this)}
+                    value={this.state.name}
+                  />
+                </label>
+              </p>
+              <p>
+                <label>
+                  Surname:
+                  <input
+                    type="text"
+                    onInput={this.onInputSurname.bind(this)}
+                    value={this.state.surname}
+                  />
+                </label>
+              </p>
+
+              <p>{!!this.state.name && ` Name: ${this.state.name}`}</p>
+              <p>{!!this.state.surname && `Surname: ${this.state.surname}`}</p>
+            </div>
+          );
+        }
+        onInputName(e) {
+          this.setState({
+            name: e.target.value,
+          });
+        }
+        onInputSurname(e) {
+          this.setState({
+            surname: e.target.value,
+          });
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>metody cyklu zycia komponentu klasowego</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"
+    />
+    <!-- <link rel="stylesheet" href="style.css"> -->
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = { dateVisible: true };
+        }
+
+        onButtonClick() {
+          this.setState((state) => ({ dateVisible: !state.dateVisible }));
+        }
+
+        render() {
+          return (
+            <div>
+              <button onClick={this.onButtonClick.bind(this)}>Kliknij</button>
+              {this.state.dateVisible && <DateComponent />}
+            </div>
+          );
+        }
+      }
+
+      class DateComponent extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = {
+            date: new Date(),
+          };
+        }
+
+        componentDidMount() {
+          this.timerId = window.setInterval(this.updateDate.bind(this), 1000);
+        }
+
+        componentWillUnmount() {
+          window.clearInterval(this.timerId);
+        }
+
+        updateDate() {
+          this.setState({
+            date: new Date(),
+          });
+        }
+        render() {
+          const dateStr = this.state.date.toString();
+          return <time>{dateStr}</time>;
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>

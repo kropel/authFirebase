@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>List filtering</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"
+    />
+    <!-- <link rel="stylesheet" href="style.css"> -->
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      const allUsers = ['Michal', 'Kasia', 'Jacek', 'Marta', 'Tomenk', 'Ania'];
+
+      class App extends React.Component {
+        constructor() {
+          super();
+
+          this.state = {
+            filteredUsers: allUsers,
+          };
+        }
+
+        filterUsers(e) {
+          const text = e.currentTarget.value;
+          this.getFilteredUsersForText(text).then((filteredUsers) =>
+            this.setState({
+              filteredUsers,
+            })
+          );
+        }
+        getFilteredUsersForText(text) {
+          return new Promise((resolve) => {
+            const time = (Math.random() + 1) * 250;
+            setTimeout(() => {
+              const filteredUsers = allUsers.filter((user) =>
+                user.toLowerCase().includes(text.toLowerCase())
+              );
+              resolve(filteredUsers);
+            }, time);
+          });
+        }
+        // getfilteredUsersForText(text){
+        //     return allUsers.filter(user => user.toLowerCase().includes(text.toLowerCase()));
+        // }
+
+        render() {
+          return (
+            <div>
+              <input onInput={this.filterUsers.bind(this)} />
+              <UsersList users={this.state.filteredUsers} />
+            </div>
+          );
+        }
+      }
+      const UsersList = ({ users }) => {
+        if (users.length > 0) {
+          return (
+            <ul>
+              {users.map((user) => (
+                <li key={user}>{user}</li>
+              ))}
+            </ul>
+          );
+        }
+        return <p>No results!</p>;
+      };
+
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>

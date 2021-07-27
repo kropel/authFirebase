@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Events</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"
+    />
+    <!-- <link rel="stylesheet" href="style.css"> -->
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      class App extends React.Component {
+        render() {
+          return (
+            <div>
+              <button
+                onClick={this.onClickHandler}
+                onMouseEnter={this.onMouseEnterHandler}
+                onMouseLeave={this.onMouseLeaveHadler}
+              >
+                Kliknij
+              </button>
+            </div>
+          );
+        }
+        onClickHandler() {
+          alert('Kliknięto!!');
+        }
+        onMouseEnterHandler() {
+          console.log('kursor nad przyciskiem');
+        }
+        onMouseLeaveHadler() {
+          console.log('kursor opuscil przycisk');
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>
